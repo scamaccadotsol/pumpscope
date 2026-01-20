@@ -191,6 +191,14 @@ td {
   font-weight: 600;
 }
 
+/* WARNING MESSAGE */
+#warningMessage {
+  color: #ff4d4f;
+  text-align: center;
+  margin-top: 20px;
+  white-space: pre-line; /* preserves line breaks */
+}
+
 /* MOBILE */
 @media(max-width:600px) {
   .hero h1 { font-size: 1.7rem; }
@@ -216,6 +224,9 @@ td {
     <input id="caInput" placeholder="Paste Token Contract Address..." />
     <button onclick="analyze()">Analyze</button>
   </div>
+
+  <!-- Warning message will appear here -->
+  <div id="warningMessage"></div>
 </section>
 
 <section class="results" id="results">
@@ -279,17 +290,31 @@ td {
 
 <script>
 function analyze() {
+  const allowedContracts = [
+    "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump", // Demo CA 1
+    "IPO123pump" // Demo CA 2
+  ];
+
   const ca = document.getElementById("caInput").value.trim();
   const results = document.getElementById("results");
+  const warning = document.getElementById("warningMessage");
 
   if (!ca) {
-    alert("Please paste a token contract address");
+    results.style.display = "none";
+    warning.textContent = "Please paste a token contract address";
     return;
   }
 
-  // Demo logic
-  results.style.display = "block";
-  results.scrollIntoView({ behavior: "smooth" });
+  if (allowedContracts.includes(ca)) {
+    // Show table
+    warning.textContent = "";
+    results.style.display = "block";
+    results.scrollIntoView({ behavior: "smooth" });
+  } else {
+    // Hide table and show warning
+    results.style.display = "none";
+    warning.textContent = "Wrong CA entered.\nPlease paste a contract address.\nNote: only contract addresses analyzed on Twitter will appear.\nThis is a demo hackathon.";
+  }
 }
 </script>
 
