@@ -7,45 +7,53 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; }
+        body { background-color: #f1f5f9; color: #1e293b; }
 
-        /* Navbar */
-        nav { background-color: #4a76c0; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; gap: 10px; }
+        /* Navbar & Hero */
+        nav { background-color: #4a76c0; padding: 12px 40px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .hero { background: linear-gradient(180deg, #4a76c0 0%, #6394e7 100%); padding: 50px 20px; text-align: center; color: white; }
+        .search-container { background: white; padding: 6px; border-radius: 12px; display: flex; max-width: 850px; margin: 25px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .search-container input { flex: 1; border: none; padding: 12px 20px; font-size: 1rem; outline: none; border-radius: 8px 0 0 8px; }
+        .search-container button { background-color: #4a76c0; color: white; border: none; padding: 0 35px; border-radius: 8px; font-weight: 600; cursor: pointer; }
 
-        /* Hero */
-        .hero { background: linear-gradient(180deg, #4a76c0 0%, #6394e7 100%); padding: 60px 20px; text-align: center; color: white; }
-        .search-container { background: white; padding: 8px; border-radius: 12px; display: flex; max-width: 900px; margin: 20px auto; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
-        .search-container input { flex: 1; border: none; padding: 15px 20px; font-size: 1rem; outline: none; }
-        .search-container button { background-color: #4a76c0; color: white; border: none; padding: 0 40px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-
-        /* Dashboard Styles */
-        .results-section { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .dashboard-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+        /* Dashboard Container */
+        .results-section { max-width: 950px; margin: -30px auto 50px; padding: 0 20px; }
+        .dashboard-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 25px rgba(0,0,0,0.1); border: 1px solid #cbd5e1; }
         
+        /* Header Badges */
         .card-header { background: #5c8ae0; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .tabs { display: flex; background: #dbeafe; padding: 5px; gap: 5px; }
-        .tab { padding: 10px 20px; font-size: 0.9rem; font-weight: 600; color: #4a76c0; cursor: pointer; }
-        .tab.active { background: white; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .stats-group { display: flex; gap: 10px; align-items: center; }
+        .badge { background: white; color: #1e293b; padding: 6px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .green-text { color: #22c55e; }
+        .divider { color: #cbd5e1; margin: 0 5px; }
 
+        /* Tabs */
+        .tabs { display: flex; background: #e2e8f0; padding: 4px; border-bottom: 1px solid #cbd5e1; }
+        .tab { padding: 10px 25px; font-size: 0.85rem; font-weight: 600; color: #64748b; cursor: pointer; }
+        .tab.active { background: white; color: #4a76c0; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        /* Table Styling */
         table { width: 100%; border-collapse: collapse; }
-        th { background: #4a76c0; color: white; padding: 12px; text-align: left; font-size: 0.85rem; text-transform: uppercase; }
-        td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .gain { color: #22c55e; font-weight: 600; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; }
+        th { background: #4a76c0; color: white; padding: 12px 15px; text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 12px 15px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; color: #334155; }
+        tr:nth-child(even) { background-color: #f8fafc; }
         
+        /* Highlighting */
+        .gain-row { background-color: #f0fdf4 !important; }
+        .gain-text { color: #16a34a; font-weight: 600; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo"><span>🚀</span> PumpScope</div>
-        <div>☰</div>
+        <div style="font-weight: 700; font-size: 1.4rem; display: flex; align-items: center; gap: 8px;">🚀 PumpScope</div>
+        <div style="font-size: 1.5rem;">☰</div>
     </nav>
 
     <header class="hero">
         <h1>Analyze Pump.fun Tokens in Real-Time</h1>
-        <p>Paste a token contract address to track dev activity and risk signals.</p>
+        <p>Track dev activity, market cap, and identify risk signals instantly.</p>
         <div class="search-container">
             <input type="text" id="caInput" placeholder="Paste Token Contract Address...">
             <button onclick="analyzeToken()">Analyze</button>
@@ -55,8 +63,16 @@
     <main id="resultsArea" class="results-section hidden">
         <div class="dashboard-card">
             <div class="card-header">
-                <span id="tokenTitle">PumpScope Analysis for $IPO</span>
-                <span style="font-weight: bold;">$50K <span style="color:#bbf7d0">+520%</span></span>
+                <span style="font-weight: 600;">PumpScope Analysis for <span style="font-weight: 700;">$IPO</span></span>
+                <div class="stats-group">
+                    <div class="badge">
+                        <span class="green-text">$50K</span>
+                        <span class="green-text" style="font-size: 0.75rem;">+520%</span>
+                        <span class="divider">|</span>
+                        <span>1,000</span>
+                        <span class="green-text" style="font-size: 0.75rem;">+375 ↑</span>
+                    </div>
+                </div>
             </div>
             <div class="tabs">
                 <div class="tab active">Dev Transactions</div>
@@ -74,20 +90,14 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr>
-                        <td>Buy</td>
-                        <td>0.5 SOL / 1M</td>
-                        <td>$5K</td>
-                        <td>Dev wallet buys 1M $IPO (First buy)</td>
-                        <td>10:25 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Sell</td>
-                        <td>1.0 SOL / 3M</td>
-                        <td>$65K</td>
-                        <td><span class="gain">Dev wallet sold 3M $IPO (+12x gain)</span></td>
-                        <td>10:45 AM</td>
-                    </tr>
+                    <tr><td>Buy</td><td>0.5 SOL / 1M</td><td>$5K</td><td>Dev wallet buys 1M $IPO (First buy)</td><td>10:25 AM</td></tr>
+                    <tr class="gain-row"><td>Sell</td><td>1.0 SOL / 3M</td><td class="gain-text">$65K</td><td class="gain-text">Dev wallet sold 3M $IPO (+12x gain)</td><td>10:45 AM</td></tr>
+                    <tr class="gain-row"><td>Sell</td><td>2.0 SOL / 4M</td><td class="gain-text">$75K</td><td class="gain-text">Dev wallet sold 4M $IPO (+20x gain)</td><td>10:55 AM</td></tr>
+                    <tr><td>Sell</td><td>0.8 SOL / 1M</td><td class="gain-text">$60K</td><td>Dev wallet sold 1M $IPO</td><td>10:57 AM</td></tr>
+                    <tr><td>Sell</td><td>1.0 SOL / 3M</td><td>$35K</td><td>Dev wallet sold 3M $IPO</td><td>11:00 AM</td></tr>
+                    <tr><td>Sell</td><td>2.0 SOL / 5M</td><td>$25K</td><td>Dev wallet sold 5M $IPO</td><td>11:10 AM</td></tr>
+                    <tr><td>Sell</td><td>1.2 SOL / 3.1M</td><td class="gain-text">$60K</td><td>Dev wallet sold 3.1M $IPO - MCap down to $25k</td><td>11:10 AM</td></tr>
+                    <tr><td>Sell</td><td>1.2 SOL / 3.1M</td><td class="gain-text">$60K</td><td>Dev wallet sold 3M $IPO - MCap rebounds to $60k</td><td>11:32 AM</td></tr>
                 </tbody>
             </table>
         </div>
@@ -100,13 +110,11 @@
             const resultsArea = document.getElementById('resultsArea');
 
             if (ca === targetCA) {
-                // Show the professional table if CA matches
                 resultsArea.classList.remove('hidden');
-                window.scrollTo({ top: resultsArea.offsetTop - 50, behavior: 'smooth' });
+                window.scrollTo({ top: resultsArea.offsetTop - 100, behavior: 'smooth' });
             } else {
-                // Hide table and alert if CA is wrong
                 resultsArea.classList.add('hidden');
-                alert("Demo Mode: Please use the specific Hackathon CA to see results.");
+                alert("Please enter the specific Hackathon CA to view this demo analysis.");
             }
         }
     </script>
