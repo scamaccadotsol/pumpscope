@@ -1,129 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PumpScope - Real-Time Analytics</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PumpScope – Demo Hackathon</title>
 
-        /* Navbar */
-        nav { background-color: #4a76c0; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; gap: 10px; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-        /* Hero */
-        .hero { background: linear-gradient(180deg, #4a76c0 0%, #6394e7 100%); padding: 60px 20px; text-align: center; color: white; }
-        .search-container { background: white; padding: 8px; border-radius: 12px; display: flex; max-width: 900px; margin: 20px auto; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
-        .search-container input { flex: 1; border: none; padding: 15px 20px; font-size: 1rem; outline: none; }
-        .search-container button { background-color: #4a76c0; color: white; border: none; padding: 0 40px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-
-        /* Dashboard Styles */
-        .results-section { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .dashboard-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
-        
-        .card-header { background: #5c8ae0; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .tabs { display: flex; background: #dbeafe; padding: 5px; gap: 5px; }
-        .tab { padding: 10px 20px; font-size: 0.9rem; font-weight: 600; color: #4a76c0; cursor: pointer; }
-        .tab.active { background: white; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #4a76c0; color: white; padding: 12px; text-align: left; font-size: 0.85rem; text-transform: uppercase; }
-        td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .gain { color: #22c55e; font-weight: 600; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; }
-        
-    .hidden { display: none; }
-    /* Mobile Fixes */
-@media (max-width: 600px) {
-    .hero h1 { font-size: 1.6rem !important; }
-    .search-container { flex-direction: column !important; background: transparent !important; border: none !important; }
-    .search-container input { border-radius: 8px !important; margin-bottom: 8px; border: 1px solid #cbd5e1 !important; width: 100% !important; }
-    .search-container button { width: 100% !important; padding: 12px !important; }
-    .card-header { flex-direction: column !important; gap: 10px; text-align: center; }
-    .multiline-badge { width: 100% !important; justify-content: center; }
-    .table-wrapper { overflow-x: auto; }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
-    </style>
-    </head>
-   <body>
 
-    <nav>
-        <div class="logo"><span>🚀</span> PumpScope Demo-Hakathon</div>
-        <div>☰</div>
-    </nav>
+body {
+    background: #f1f5f9;
+    color: #0f172a;
+}
 
-    <header class="hero">
-        <h1>Analyze Pump.fun Tokens in Real-Time</h1>
-        <br>
-        <br>
-        <p>Paste a token contract address to track dev activity, market cap, holders data and identify risk signals.</p>
-    
-        <div class="search-container">
-            <input type="text" id="caInput" placeholder="Paste Token Contract Address...">
-            <button onclick="analyzeToken()">Analyze</button>
+/* NAVBAR */
+nav {
+    background: linear-gradient(90deg, #4a76c0, #5c8ae0);
+    padding: 16px 40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    gap: 8px;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(180deg, #4a76c0, #6394e7);
+    padding: 70px 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    opacity: 0.95;
+}
+
+/* SEARCH */
+.search-box {
+    max-width: 850px;
+    margin: 30px auto 0;
+    display: flex;
+    background: white;
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 16px 20px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-box button {
+    background: #4a76c0;
+    border: none;
+    color: white;
+    padding: 0 40px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* MESSAGE */
+.demo-msg {
+    text-align: center;
+    color: #ef4444;
+    margin-top: 15px;
+    display: none;
+}
+
+/* RESULTS */
+.results {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: none;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* HEADER */
+.card-header {
+    background: linear-gradient(90deg, #4a76c0, #5c8ae0);
+    color: white;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats {
+    font-weight: 700;
+}
+
+/* TABS */
+.tabs {
+    display: flex;
+    background: #e0e7ff;
+}
+
+.tab {
+    padding: 14px 22px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.tab.active {
+    background: white;
+    border-bottom: 3px solid #4a76c0;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #4a76c0;
+    color: white;
+    padding: 14px;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+}
+
+.badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* MOBILE */
+@media(max-width: 700px) {
+    .hero h1 { font-size: 1.6rem; }
+    .search-box { flex-direction: column; }
+    .search-box button { padding: 14px; width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🚀 PumpScope</div>
+    <div>☰</div>
+</nav>
+
+<section class="hero">
+    <h1>Analyze Pump.fun Tokens in Real-Time</h1>
+    <p>Paste a token contract address to track dev activity, market cap, holder behavior and risk signals.</p>
+
+    <div class="search-box">
+        <input id="caInput" placeholder="Paste Token Contract Address..." />
+        <button onclick="analyze()">Analyze</button>
+    </div>
+
+    <div id="msg" class="demo-msg">
+        Demo mode – analysis available for selected hackathon tokens only.
+    </div>
+</section>
+
+<section id="results" class="results">
+    <div class="card">
+        <div class="card-header">
+            <span>PumpScope Analysis for <strong>$IPO</strong></span>
+            <span class="stats">$50K <span style="color:#bbf7d0;">+520%</span></span>
         </div>
-    </header>
 
-    <main id="resultsArea" class="results-section hidden">
-        <div class="dashboard-card">
-            <div class="card-header">
-                <span id="tokenTitle">PumpScope Analysis for $IPO</span>
-                <span style="font-weight: bold;">$50K <span style="color:#bbf7d0">+520%</span></span>
-            </div>
-            <div class="tabs">
-                <div class="tab active">Dev Transactions</div>
-                <div class="tab">Holder Analysis</div>
-                <div class="tab">Risk Signals</div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Action</th>
-                        <th>Amount / Coins</th>
-                        <th>Market Cap</th>
-                        <th>Notes</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <td>Buy</td>
-                        <td>0.5 SOL / 1M</td>
-                        <td>$5K</td>
-                        <td>Dev wallet buys 1M $IPO (First buy)</td>
-                        <td>10:25 AM</td>
-                    </tr>
-                    <tr>
-                        <td>Sell</td>
-                        <td>1.0 SOL / 3M</td>
-                        <td>$65K</td>
-                        <td><span class="gain">Dev wallet sold 3M $IPO (+12x gain)</span></td>
-                        <td>10:45 AM</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="tabs">
+            <div class="tab active">Dev Transactions</div>
+            <div class="tab">Holder Analysis</div>
+            <div class="tab">Risk Signals</div>
         </div>
-    </main>
 
-    <script>
-        function analyzeToken() {
-            const ca = document.getElementById('caInput').value.trim();
-            const targetCA = "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump";
-            const resultsArea = document.getElementById('resultsArea');
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Amount / Coins</th>
+                    <th>Market Cap</th>
+                    <th>Notes</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Buy</td>
+                    <td>0.5 SOL / 1M</td>
+                    <td>$5K</td>
+                    <td>Dev wallet buys 1M $IPO (First buy)</td>
+                    <td>10:25 AM</td>
+                </tr>
+                <tr>
+                    <td>Sell</td>
+                    <td>1.0 SOL / 3M</td>
+                    <td>$65K</td>
+                    <td><span class="badge">+12x gain</span> Dev wallet sold 3M</td>
+                    <td>10:45 AM</td>
+                </tr>
+                <tr>
+                    <td>Sell</td>
+                    <td>2.0 SOL / 4M</td>
+                    <td>$75K</td>
+                    <td><span class="badge">+20x gain</span> Heavy distribution</td>
+                    <td>10:55 AM</td>
+                </tr>
+                <tr>
+                    <td>Sell</td>
+                    <td>2.0 SOL / 5M</td>
+                    <td>$25K</td>
+                    <td>Liquidity drained – risk confirmed</td>
+                    <td>11:10 AM</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
 
-            if (ca === targetCA) {
-                // Show the professional table if CA matches
-                resultsArea.classList.remove('hidden');
-                window.scrollTo({ top: resultsArea.offsetTop - 50, behavior: 'smooth' });
-            } else {
-                // Hide table and alert if CA is wrong
-                resultsArea.classList.add('hidden');
-                alert("Demo Mode: Please use the specific Hackathon CA to see results.");
-            }
-        }
-    </script>
+<script>
+function analyze() {
+    const input = document.getElementById("caInput").value.trim();
+    const targetCA = "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump";
+
+    const results = document.getElementById("results");
+    const msg = document.getElementById("msg");
+
+    if (input === targetCA) {
+        results.style.display = "block";
+        msg.style.display = "none";
+        window.scrollTo({ top: results.offsetTop - 40, behavior: "smooth" });
+    } else {
+        results.style.display = "none";
+        msg.style.display = "block";
+    }
+}
+</script>
+
 </body>
 </html>
