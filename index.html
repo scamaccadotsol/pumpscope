@@ -309,10 +309,6 @@ function analyze() {
   const ca = document.getElementById("caInput").value.trim();
   const results = document.getElementById("results");
   const warning = document.getElementById("warningMessage");
-  const rows = document.querySelectorAll("#tableBody tr");
-
-  // Hide all rows initially
-  rows.forEach(row => row.style.opacity = 0);
 
   if (!ca) {
     results.style.display = "none";
@@ -325,14 +321,6 @@ function analyze() {
     warning.textContent = "";
     results.style.display = "block";
     results.scrollIntoView({ behavior: "smooth" });
-
-    // Animate rows one by one
-    rows.forEach((row, index) => {
-      setTimeout(() => {
-        row.style.opacity = 1;
-      }, index * 400); // 400ms delay between each row
-    });
-
   } else {
     // Hide table and show warning
     results.style.display = "none";
