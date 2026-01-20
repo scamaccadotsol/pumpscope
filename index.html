@@ -181,8 +181,6 @@ td {
   padding: 14px;
   font-size: 0.9rem;
   border-bottom: 1px solid #e5e7eb;
-  opacity: 0; /* hide rows initially */
-  transition: opacity 0.5s ease;
 }
 
 .gain {
@@ -262,36 +260,7 @@ td {
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr>
-            <td>1</td><td>Buy</td><td>Dev (main Wallet)</td><td>153M</td><td>$4.43K</td><td>Initial launch buy</td><td>44m ago</td>
-          </tr>
-          <tr>
-            <td>2</td><td>Buy</td><td>Dev (main Wallet)</td><td>4.5M</td><td>$8.8K</td><td>Additional accumulation</td><td>43m ago</td>
-          </tr>
-          <tr>
-            <td>3</td><td>Buy</td><td>Dev (main wallet)</td><td>4.3M</td><td>$15.5K</td><td> Additional accumulation</td><td>42m ago</td>
-          </tr>
-          <tr>
-            <td>4</td><td>Sell</td><td>Dev (main wallet)</td><td>3.4M</td><td>$39.4K</td><td class="gain">Sell detected</td><td>41m ago</td>
-          </tr>
-          <tr>
-            <td>5</td><td>Sell</td><td>Dev (main Wallet)</td><td>3.7M</td><td>$33.3K</td><td>Sell detected</td><td>40m ago</td>
-          </tr>
-          <tr>
-            <td>6</td><td>Transfer</td><td>Wallet1 (87kjfh..)</td><td>50M</td><td>—</td><td>No sell yet</td><td>39m ago</td>
-          </tr>
-           <tr>
-            <td>7</td><td>Transfer</td><td>Wallet1 (87kjfh..)</td><td>2M</td><td>—</td><td>No sell yet</td><td>39m ago</td>
-          </tr>
-          <tr>
-            <td>8</td><td>Transfer</td><td>Wallet2 (3gdfsj..)</td><td>30M</td><td>—</td><td>No sell yet</td><td>38m ago</td>
-          </tr>
-          <tr>
-            <td>9</td><td>sell</td><td>Wallet2 (3gdfsj..)</td><td>18M</td><td>$180k</td><td>sell detected</td><td>12m ago</td>
-          </tr>
-          <tr>
-            <td>10</td><td>sell</td><td>Wallet1 (87kjfh..)</td><td>1M</td><td>$170k</td><td>sell detected </td><td>8m ago</td>
-          </tr>
+          <!-- Rows will be added dynamically -->
         </tbody>
       </table>
     </div>
@@ -306,9 +275,23 @@ function analyze() {
     "IPO123pump" // Demo CA 2
   ];
 
+  const demoRows = [
+    ["1","Buy","Dev (main Wallet)","153M","$4.43K","Initial launch buy","44m ago"],
+    ["2","Buy","Dev (main Wallet)","4.5M","$8.8K","Additional accumulation","43m ago"],
+    ["3","Buy","Dev (main wallet)","4.3M","$15.5K","Additional accumulation","42m ago"],
+    ["4","Sell","Dev (main wallet)","3.4M","$39.4K","Sell detected","41m ago"],
+    ["5","Sell","Dev (main Wallet)","3.7M","$33.3K","Sell detected","40m ago"],
+    ["6","Transfer","Wallet1 (87kjfh..)","50M","—","No sell yet","39m ago"],
+    ["7","Transfer","Wallet1 (87kjfh..)","2M","—","No sell yet","39m ago"],
+    ["8","Transfer","Wallet2 (3gdfsj..)","30M","—","No sell yet","38m ago"],
+    ["9","Sell","Wallet2 (3gdfsj..)","18M","$180k","Sell detected","12m ago"],
+    ["10","Sell","Wallet1 (87kjfh..)","1M","$170k","Sell detected","8m ago"]
+  ];
+
   const ca = document.getElementById("caInput").value.trim();
   const results = document.getElementById("results");
   const warning = document.getElementById("warningMessage");
+  const tbody = document.getElementById("tableBody");
 
   if (!ca) {
     results.style.display = "none";
@@ -317,12 +300,26 @@ function analyze() {
   }
 
   if (allowedContracts.includes(ca)) {
-    // Show table
     warning.textContent = "";
     results.style.display = "block";
+    tbody.innerHTML = ""; // Clear old rows
+
+    // Row-by-row animation
+    demoRows.forEach((row, index) => {
+      setTimeout(() => {
+        const tr = document.createElement("tr");
+        row.forEach(cell => {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          if(cell.toLowerCase().includes("sell detected")) td.classList.add("gain");
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }, index * 500); // 500ms delay between rows
+    });
+
     results.scrollIntoView({ behavior: "smooth" });
   } else {
-    // Hide table and show warning
     results.style.display = "none";
     warning.textContent = "Wrong CA entered.\nPlease paste a contract address.\nNote: only contract addresses analyzed on Twitter will appear.\nThis is a demo hackathon.";
   }
