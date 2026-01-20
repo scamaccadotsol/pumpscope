@@ -284,6 +284,7 @@ const tableData = [
 ];
 
 function analyze() {
+  const allowedContracts = [ "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump"];
   const ca = document.getElementById("caInput").value.trim();
   const results = document.getElementById("results");
   const warning = document.getElementById("warningMessage");
@@ -294,7 +295,11 @@ function analyze() {
     warning.textContent = "Please paste a token contract address";
     return;
   }
-
+if (!allowedContracts.includes(ca)) {
+    results.style.display = "none";
+    warning.textContent = "Wrong CA entered.\nPlease paste a contract address.\nNote: only contract addresses analyzed on Twitter will appear.\nThis is a demo hackathon.";
+    return;
+  }
   warning.textContent = "";
   results.style.display = "block";
   tableBody.innerHTML = ""; // clear table
