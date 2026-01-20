@@ -1,164 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PumpScope – Hackathon Demo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PumpScope – Hackathon Demo</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f1f5f9;
-      color: #0f172a;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      padding: 60px 20px;
-      text-align: center;
-      color: white;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-    .hero h1 {
-      font-size: 2.4rem;
-      margin-bottom: 16px;
-    }
+body {
+  background: #f1f5f9;
+  color: #0f172a;
+}
 
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto 30px;
-      font-size: 1.05rem;
-      opacity: 0.95;
-    }
+/* NAV */
+nav {
+  background: #2f5fb8;
+  color: white;
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    /* SEARCH */
-    .search-container {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      gap: 10px;
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-    }
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
-    .search-container input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      font-size: 0.95rem;
-    }
+/* HERO */
+.hero {
+  background: linear-gradient(180deg, #3b6fdc 0%, #5a8dee 100%);
+  padding: 70px 20px 90px;
+  text-align: center;
+  color: white;
+}
 
-    .search-container button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #0ea5e9;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
 
-    .search-container button:hover {
-      background: #0284c7;
-    }
+.hero p {
+  max-width: 720px;
+  margin: 0 auto 30px;
+  font-size: 1.05rem;
+  opacity: 0.95;
+}
 
-    /* TABLE SECTION */
-    .table-section {
-      max-width: 1100px;
-      margin: -40px auto 60px;
-      padding: 0 16px;
-    }
+.search-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 10px;
+  border-radius: 14px;
+  display: flex;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
 
-    .table-wrapper {
-      background: white;
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      overflow-x: auto;
-    }
+.search-box input {
+  flex: 1;
+  border: none;
+  padding: 16px 18px;
+  font-size: 1rem;
+  outline: none;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.92rem;
-    }
+.search-box button {
+  background: #3b6fdc;
+  border: none;
+  color: white;
+  padding: 0 42px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
-    thead th {
-      background: #f8fafc;
-      padding: 12px;
-      text-align: left;
-      font-weight: 600;
-      border-bottom: 1px solid #e5e7eb;
-    }
+/* RESULTS */
+.results {
+  max-width: 1150px;
+  margin: -70px auto 60px;
+  padding: 0 20px;
+  display: none;
+}
 
-    tbody td {
-      padding: 12px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+.card {
+  background: white;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+/* CARD HEADER */
+.card-header {
+  background: linear-gradient(180deg, #4c7fe5, #6a98f0);
+  color: white;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .buy {
-      color: #16a34a;
-      font-weight: 600;
-    }
+.card-header strong {
+  font-size: 1.05rem;
+}
 
-    .sell {
-      color: #dc2626;
-      font-weight: 600;
-    }
+.stats {
+  display: flex;
+  gap: 16px;
+}
 
-    .transfer {
-      color: #9333ea;
-      font-weight: 600;
-    }
+.stat {
+  background: white;
+  color: #0f172a;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
 
-    /* MOBILE FIXES */
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 1.6rem; }
+.stat span {
+  color: #16a34a;
+}
 
-      .search-container {
-        flex-direction: column;
-        background: transparent;
-        box-shadow: none;
-      }
+/* TABS */
+.tabs {
+  display: flex;
+  background: #eef2ff;
+  padding: 8px;
+  gap: 6px;
+}
 
-      .search-container input {
-        width: 100%;
-      }
+.tab {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  color: #334155;
+}
 
-      .search-container button {
-        width: 100%;
-      }
-    }
-  </style>
+.tab.active {
+  background: white;
+  color: #1e3a8a;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #3b6fdc;
+  color: white;
+  padding: 14px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+td {
+  padding: 14px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.gain {
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+  .hero h1 { font-size: 1.7rem; }
+  .search-box { flex-direction: column; }
+  .search-box button { width: 100%; padding: 14px; }
+  .card-header { flex-direction: column; gap: 10px; }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>PumpScope – Hackathon Demo</h1>
-    <p>
-      Analyze Pump.fun tokens in real time… track wallet activity, market cap,
-      holders growth, and early risk signals before dumps happen
-    </p>
+<nav>
+  <div class="logo">🚀 PumpScope</div>
+  <div>Hackathon Demo</div>
+</nav>
 
-    <div class="search-container">
-      <input type="text" placeholder="Paste Pump.fun Contract Address (CA)" />
-      <button>Analyze</button>
+<section class="hero">
+  <h1>Analyze Pump.fun Tokens in Real-Time</h1>
+  <p>Paste a token contract address to track dev activity, market cap, holders, and detect early risk signals.</p>
+
+  <div class="search-box">
+    <input id="caInput" placeholder="Paste Token Contract Address..." />
+    <button onclick="analyze()">Analyze</button>
+  </div>
+</section>
+
+<section class="results" id="results">
+  <div class="card">
+
+    <div class="card-header">
+      <strong>PumpScope Analysis for $IPO</strong>
+      <div class="stats">
+        <div class="stat">$50K <span>+520%</span></div>
+        <div class="stat">Holders: <span>1,000</span></div>
+      </div>
     </div>
-  </section>
 
-  <!-- TABLE -->
-  <section class="table-section">
+    <div class="tabs">
+      <div class="tab active">Dev Transactions</div>
+      <div class="tab">Holder Analysis</div>
+      <div class="tab">Risk Signals</div>
+    </div>
+
     <div class="table-wrapper">
       <table>
         <thead>
@@ -168,92 +244,54 @@
             <th>Wallet</th>
             <th>Amount / Coins</th>
             <th>MCap</th>
-            <th>Holders</th>
             <th>Notes</th>
             <th>Timestamp</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td class="buy">Buy</td>
-            <td>Dev Wallet (Main)</td>
-            <td>153M</td>
-            <td>$4.43k</td>
-            <td>12</td>
-            <td>Initial launch buy</td>
-            <td>44m ago</td>
+            <td>1</td><td>Buy</td><td>Dev Wallet</td><td>153M</td><td>$4.43K</td><td>Initial launch buy</td><td>44m ago</td>
           </tr>
-
           <tr>
-            <td>2</td>
-            <td class="buy">Buy</td>
-            <td>Dev Wallet (Main)</td>
-            <td>4.5M</td>
-            <td>$8.8k</td>
-            <td>18</td>
-            <td>Additional accumulation</td>
-            <td>43m ago</td>
+            <td>2</td><td>Buy</td><td>Dev Wallet</td><td>4.5M</td><td>$8.8K</td><td>Additional accumulation</td><td>43m ago</td>
           </tr>
-
           <tr>
-            <td>3</td>
-            <td class="buy">Buy</td>
-            <td>Dev Wallet (Main)</td>
-            <td>4.3M</td>
-            <td>$15.5k</td>
-            <td>24</td>
-            <td>Continued accumulation</td>
-            <td>42m ago</td>
+            <td>3</td><td>Buy</td><td>Dev Wallet</td><td>4.3M</td><td>$15.5K</td><td>Continued accumulation</td><td>42m ago</td>
           </tr>
-
           <tr>
-            <td>4</td>
-            <td class="sell">Sell</td>
-            <td>Dev Wallet (Main)</td>
-            <td>3.4M</td>
-            <td>$39.49k</td>
-            <td>31</td>
-            <td>Sell detected</td>
-            <td>41m ago</td>
+            <td>4</td><td>Sell</td><td>Dev Wallet</td><td>3.4M</td><td>$39.4K</td><td class="gain">Sell detected</td><td>41m ago</td>
           </tr>
-
           <tr>
-            <td>5</td>
-            <td class="sell">Sell</td>
-            <td>Dev Wallet (Main)</td>
-            <td>3.7M</td>
-            <td>$33.38k</td>
-            <td>29</td>
-            <td>Sell detected</td>
-            <td>40m ago</td>
+            <td>5</td><td>Sell</td><td>Dev Wallet</td><td>3.7M</td><td>$33.3K</td><td>Sell detected</td><td>40m ago</td>
           </tr>
-
           <tr>
-            <td>6</td>
-            <td class="transfer">Transfer</td>
-            <td>Wallet 1 (New)</td>
-            <td>50M</td>
-            <td>—</td>
-            <td>34</td>
-            <td>No sell yet</td>
-            <td>39m ago</td>
+            <td>6</td><td>Transfer</td><td>Wallet 1</td><td>50M</td><td>—</td><td>No sell yet</td><td>39m ago</td>
           </tr>
-
           <tr>
-            <td>7</td>
-            <td class="transfer">Transfer</td>
-            <td>Wallet 2 (New)</td>
-            <td>30M</td>
-            <td>—</td>
-            <td>37</td>
-            <td>No sell yet</td>
-            <td>38m ago</td>
+            <td>7</td><td>Transfer</td><td>Wallet 2</td><td>30M</td><td>—</td><td>No sell yet</td><td>38m ago</td>
           </tr>
         </tbody>
       </table>
     </div>
-  </section>
+
+  </div>
+</section>
+
+<script>
+function analyze() {
+  const ca = document.getElementById("caInput").value.trim();
+  const results = document.getElementById("results");
+
+  if (!ca) {
+    alert("Please paste a token contract address");
+    return;
+  }
+
+  // Demo logic
+  results.style.display = "block";
+  results.scrollIntoView({ behavior: "smooth" });
+}
+</script>
 
 </body>
 </html>
