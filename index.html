@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PumpScope Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    h1 { color: #333; }
+    input, button { padding: 10px; margin-top: 10px; width: 100%; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #eee; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PumpScope Demo</h1>
+    <p>🚧 Build-in-public project for Pump.fun Hackathon</p>
+    <input type="text" id="caInput" placeholder="Paste your CA here">
+    <button onclick="showDemoTable()">Analyze</button>
+
+    <div id="demoTable" class="hidden">
+      <h3>Demo Table</h3>
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Amount / Coins</th>
+          <th>Market Cap</th>
+          <th>Note</th>
+          <th>Timestamp</th>
+        </tr>
+        <tr>
+          <td>Buy</td>
+          <td>153M $IPO</td>
+          <td>$4.43k</td>
+          <td>Initial Dev Purchase</td>
+          <td>44 min ago</td>
+        </tr>
+        <tr>
+          <td>Buy</td>
+          <td>39M $IPO</td>
+          <td>$8.8k</td>
+          <td>Additional Dev Purchase</td>
+          <td>45 min ago</td>
+        </tr>
+        <tr>
+          <td>Sell</td>
+          <td>3.4M $IPO</td>
+          <td>$39.49k</td>
+          <td>Dev Sell</td>
+          <td>49 min ago</td>
+        </tr>
+        <tr>
+          <td>Transfer</td>
+          <td>100M $IPO</td>
+          <td>—</td>
+          <td>No sell yet (Wallet 1)</td>
+          <td>50 min ago</td>
+        </tr>
+        <tr>
+          <td>Transfer</td>
+          <td>—</td>
+          <td>—</td>
+          <td>No sell yet (Wallet 2)</td>
+          <td>51 min ago</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function showDemoTable() {
+      // Get the input value
+      var caValue = document.getElementById("caInput").value;
+
+      // For demo purposes, we will show the table regardless of the CA value
+      if (caValue) {
+        document.getElementById("demoTable").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
