@@ -1,275 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PumpScope – Demo Hackathon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PumpScope – Hackathon Demo</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
 
-body {
-    background: #f1f5f9;
-    color: #0f172a;
-}
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+    }
 
-/* NAVBAR */
-nav {
-    background: linear-gradient(90deg, #4a76c0, #5c8ae0);
-    padding: 16px 40px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
 
-.logo {
-    font-size: 1.4rem;
-    font-weight: 700;
-    display: flex;
-    gap: 8px;
-}
+    /* SEARCH */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
 
-/* HERO */
-.hero {
-    background: linear-gradient(180deg, #4a76c0, #6394e7);
-    padding: 70px 20px;
-    text-align: center;
-    color: white;
-}
+    .search-container input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.95rem;
+    }
 
-.hero h1 {
-    font-size: 2.2rem;
-    margin-bottom: 12px;
-}
+    .search-container button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #0ea5e9;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-.hero p {
-    opacity: 0.95;
-}
+    .search-container button:hover {
+      background: #0284c7;
+    }
 
-/* SEARCH */
-.search-box {
-    max-width: 850px;
-    margin: 30px auto 0;
-    display: flex;
-    background: white;
-    border-radius: 14px;
-    padding: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
+    /* TABLE SECTION */
+    .table-section {
+      max-width: 1100px;
+      margin: -40px auto 60px;
+      padding: 0 16px;
+    }
 
-.search-box input {
-    flex: 1;
-    padding: 16px 20px;
-    border: none;
-    font-size: 1rem;
-    outline: none;
-}
+    .table-wrapper {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      overflow-x: auto;
+    }
 
-.search-box button {
-    background: #4a76c0;
-    border: none;
-    color: white;
-    padding: 0 40px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
 
-/* MESSAGE */
-.demo-msg {
-    text-align: center;
-    color: #ef4444;
-    margin-top: 15px;
-    display: none;
-}
+    thead th {
+      background: #f8fafc;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid #e5e7eb;
+    }
 
-/* RESULTS */
-.results {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: none;
-}
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
 
-.card {
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
 
-/* HEADER */
-.card-header {
-    background: linear-gradient(90deg, #4a76c0, #5c8ae0);
-    color: white;
-    padding: 18px 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .buy {
+      color: #16a34a;
+      font-weight: 600;
+    }
 
-.stats {
-    font-weight: 700;
-}
+    .sell {
+      color: #dc2626;
+      font-weight: 600;
+    }
 
-/* TABS */
-.tabs {
-    display: flex;
-    background: #e0e7ff;
-}
+    .transfer {
+      color: #9333ea;
+      font-weight: 600;
+    }
 
-.tab {
-    padding: 14px 22px;
-    font-weight: 600;
-    color: #334155;
-}
+    /* MOBILE FIXES */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
 
-.tab.active {
-    background: white;
-    border-bottom: 3px solid #4a76c0;
-}
+      .search-container {
+        flex-direction: column;
+        background: transparent;
+        box-shadow: none;
+      }
 
-/* TABLE */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+      .search-container input {
+        width: 100%;
+      }
 
-th {
-    background: #4a76c0;
-    color: white;
-    padding: 14px;
-    font-size: 0.85rem;
-    text-align: left;
-}
-
-td {
-    padding: 14px;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 0.9rem;
-}
-
-.badge {
-    background: #dcfce7;
-    color: #166534;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-/* MOBILE */
-@media(max-width: 700px) {
-    .hero h1 { font-size: 1.6rem; }
-    .search-box { flex-direction: column; }
-    .search-box button { padding: 14px; width: 100%; }
-}
-</style>
+      .search-container button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-    <div class="logo">🚀 PumpScope</div>
-    <div>☰</div>
-</nav>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>PumpScope – Hackathon Demo</h1>
+    <p>
+      Analyze Pump.fun tokens in real time… track wallet activity, market cap,
+      holders growth, and early risk signals before dumps happen
+    </p>
 
-<section class="hero">
-    <h1>Analyze Pump.fun Tokens in Real-Time</h1>
-    <p>Paste a token contract address to track dev activity, market cap, holder behavior and risk signals.</p>
-
-    <div class="search-box">
-        <input id="caInput" placeholder="Paste Token Contract Address..." />
-        <button onclick="analyze()">Analyze</button>
+    <div class="search-container">
+      <input type="text" placeholder="Paste Pump.fun Contract Address (CA)" />
+      <button>Analyze</button>
     </div>
+  </section>
 
-    <div id="msg" class="demo-msg">
-        Demo mode – analysis available for selected hackathon tokens only.
+  <!-- TABLE -->
+  <section class="table-section">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Action</th>
+            <th>Wallet</th>
+            <th>Amount / Coins</th>
+            <th>MCap</th>
+            <th>Holders</th>
+            <th>Notes</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="buy">Buy</td>
+            <td>Dev Wallet (Main)</td>
+            <td>153M</td>
+            <td>$4.43k</td>
+            <td>12</td>
+            <td>Initial launch buy</td>
+            <td>44m ago</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td class="buy">Buy</td>
+            <td>Dev Wallet (Main)</td>
+            <td>4.5M</td>
+            <td>$8.8k</td>
+            <td>18</td>
+            <td>Additional accumulation</td>
+            <td>43m ago</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td class="buy">Buy</td>
+            <td>Dev Wallet (Main)</td>
+            <td>4.3M</td>
+            <td>$15.5k</td>
+            <td>24</td>
+            <td>Continued accumulation</td>
+            <td>42m ago</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td class="sell">Sell</td>
+            <td>Dev Wallet (Main)</td>
+            <td>3.4M</td>
+            <td>$39.49k</td>
+            <td>31</td>
+            <td>Sell detected</td>
+            <td>41m ago</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td class="sell">Sell</td>
+            <td>Dev Wallet (Main)</td>
+            <td>3.7M</td>
+            <td>$33.38k</td>
+            <td>29</td>
+            <td>Sell detected</td>
+            <td>40m ago</td>
+          </tr>
+
+          <tr>
+            <td>6</td>
+            <td class="transfer">Transfer</td>
+            <td>Wallet 1 (New)</td>
+            <td>50M</td>
+            <td>—</td>
+            <td>34</td>
+            <td>No sell yet</td>
+            <td>39m ago</td>
+          </tr>
+
+          <tr>
+            <td>7</td>
+            <td class="transfer">Transfer</td>
+            <td>Wallet 2 (New)</td>
+            <td>30M</td>
+            <td>—</td>
+            <td>37</td>
+            <td>No sell yet</td>
+            <td>38m ago</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</section>
-
-<section id="results" class="results">
-    <div class="card">
-        <div class="card-header">
-            <span>PumpScope Analysis for <strong>$IPO</strong></span>
-            <span class="stats">$50K <span style="color:#bbf7d0;">+520%</span></span>
-        </div>
-
-        <div class="tabs">
-            <div class="tab active">Dev Transactions</div>
-            <div class="tab">Holder Analysis</div>
-            <div class="tab">Risk Signals</div>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Amount / Coins</th>
-                    <th>Market Cap</th>
-                    <th>Notes</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Buy</td>
-                    <td>0.5 SOL / 1M</td>
-                    <td>$5K</td>
-                    <td>Dev wallet buys 1M $IPO (First buy)</td>
-                    <td>10:25 AM</td>
-                </tr>
-                <tr>
-                    <td>Sell</td>
-                    <td>1.0 SOL / 3M</td>
-                    <td>$65K</td>
-                    <td><span class="badge">+12x gain</span> Dev wallet sold 3M</td>
-                    <td>10:45 AM</td>
-                </tr>
-                <tr>
-                    <td>Sell</td>
-                    <td>2.0 SOL / 4M</td>
-                    <td>$75K</td>
-                    <td><span class="badge">+20x gain</span> Heavy distribution</td>
-                    <td>10:55 AM</td>
-                </tr>
-                <tr>
-                    <td>Sell</td>
-                    <td>2.0 SOL / 5M</td>
-                    <td>$25K</td>
-                    <td>Liquidity drained – risk confirmed</td>
-                    <td>11:10 AM</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<script>
-function analyze() {
-    const input = document.getElementById("caInput").value.trim();
-    const targetCA = "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump";
-
-    const results = document.getElementById("results");
-    const msg = document.getElementById("msg");
-
-    if (input === targetCA) {
-        results.style.display = "block";
-        msg.style.display = "none";
-        window.scrollTo({ top: results.offsetTop - 40, behavior: "smooth" });
-    } else {
-        results.style.display = "none";
-        msg.style.display = "block";
-    }
-}
-</script>
+  </section>
 
 </body>
 </html>
