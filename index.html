@@ -325,6 +325,52 @@ function analyze() {
   }
 }
 </script>
+<script>
+// Function to simulate real-time mcap and % changes
+function animateStats() {
+  const mcapElem = document.querySelector(".stat:nth-child(1)");
+  const percElem = mcapElem.querySelector("span");
+  
+  let baseMcap = 50000; // starting $50K
+  let basePerc = 520;   // starting 520%
+  
+  setInterval(() => {
+    // Randomize change
+    let mcapChange = Math.floor(Math.random() * 5000) - 2500; // -2500 to +2500
+    let percChange = Math.floor(Math.random() * 100) - 50;     // -50 to +50
+    
+    baseMcap += mcapChange;
+    basePerc += percChange;
+    
+    if (baseMcap < 0) baseMcap = 0;
+    if (basePerc < -100) basePerc = -100;
+    
+    // Update Market Cap
+    mcapElem.childNodes[0].textContent = `$${baseMcap.toLocaleString()}`;
+    
+    // Update % gain
+    percElem.textContent = (basePerc > 0 ? `+${basePerc}%` : `${basePerc}%`);
+    
+    // Color shine
+    if (percElem.textContent.startsWith("+")) {
+      percElem.style.color = "#16a34a"; // green for increase
+    } else {
+      percElem.style.color = "#dc2626"; // red for decrease
+    }
+    
+    // Optional: make it blink slightly for effect
+    percElem.style.transition = "color 0.3s, transform 0.2s";
+    percElem.style.transform = "scale(1.2)";
+    setTimeout(() => { percElem.style.transform = "scale(1)"; }, 200);
+    
+  }, 1500); // update every 1.5 seconds
+}
+
+// Run stats animation after analyze
+function startAnimations() {
+  animateStats();
+}
+</script>
 
 </body>
 </html>
