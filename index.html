@@ -317,52 +317,40 @@ function animateTable() {
 function animateStats() {
   const mcapElem = document.querySelector(".stat:nth-child(1)");
   const percElem = mcapElem.querySelector("span");
-  
+  const holdersElem = document.querySelector(".stat:nth-child(2) span");
+
   let baseMcap = 50000; // starting $50K
   let basePerc = 520;   // starting 520%
-  
+  let baseHolders = 1000; // starting 1,000 holders
+
   setInterval(() => {
+    // Market Cap and % gain
     let mcapChange = Math.floor(Math.random() * 5000) - 2500; // -2500 to +2500
     let percChange = Math.floor(Math.random() * 100) - 50;     // -50 to +50
-    
+
     baseMcap += mcapChange;
     basePerc += percChange;
-    
+
     if (baseMcap < 0) baseMcap = 0;
     if (basePerc < -100) basePerc = -100;
-    
+
     mcapElem.childNodes[0].textContent = `$${baseMcap.toLocaleString()}`;
     percElem.textContent = (basePerc > 0 ? `+${basePerc}%` : `${basePerc}%`);
-    
     percElem.style.color = basePerc >= 0 ? "#16a34a" : "#dc2626";
     percElem.style.transform = "scale(1.2)";
     setTimeout(() => { percElem.style.transform = "scale(1)"; }, 200);
-    
-  }, 1500);
-}
 
-// Main analyze function
-function analyze() {
-  const ca = document.getElementById("caInput").value.trim();
-  const results = document.getElementById("results");
-  const warning = document.getElementById("warningMessage");
+    // Holders
+    let holdersChange = Math.floor(Math.random() * 30) - 15; // -15 to +15
+    baseHolders += holdersChange;
+    if (baseHolders < 0) baseHolders = 0;
 
-  if (!ca) {
-    results.style.display = "none";
-    warning.textContent = "Please paste a token contract address";
-    return;
-  }
+    holdersElem.textContent = baseHolders.toLocaleString();
+    holdersElem.style.color = holdersChange >= 0 ? "#16a34a" : "#dc2626";
+    holdersElem.style.transform = "scale(1.2)";
+    setTimeout(() => { holdersElem.style.transform = "scale(1)"; }, 200);
 
-  if (allowedContracts.includes(ca)) {
-    warning.textContent = "";
-    results.style.display = "block";
-    results.scrollIntoView({ behavior: "smooth" });
-    animateTable();
-    animateStats(); // start main stats animation
-  } else {
-    results.style.display = "none";
-    warning.textContent = "Wrong CA entered.\nPlease paste a contract address.\nNote: only contract addresses analyzed on Twitter will appear.\nThis is a demo hackathon.";
-  }
+  }, 1500); // update every 1.5 seconds
 }
 </script>
 
