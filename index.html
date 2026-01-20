@@ -1,93 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PumpScope Demo</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #e0f7fa; margin: 0; padding: 0; }
-    .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-    .header { background: #0288d1; color: #fff; padding: 20px; border-radius: 5px; text-align: center; }
-    h1 { margin: 0; }
-    p { text-align: center; color: #555; margin-top: 10px; }
-    input, button { padding: 12px; margin-top: 20px; width: 100%; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
-    input:focus, button:focus { outline: none; border-color: #0288d1; }
-    button { background: #0288d1; color: #fff; cursor: pointer; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
-    th { background: #0288d1; color: #fff; }
-    .hidden { display: none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PumpScope - Real-Time Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #4a76c0; /* Match the blue in your image */
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 10px;
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section with Blue Gradient */
+        .hero {
+            background: linear-gradient(180deg, #4a76c0 0%, #6394e7 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Container Styling */
+        .search-container {
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            display: flex;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1rem;
+            outline: none;
+            color: #334155;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .search-container button {
+            background-color: #4a76c0;
+            color: white;
+            border: none;
+            padding: 0 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-container button:hover {
+            background-color: #3b61a3;
+        }
+
+        /* Results Table Area */
+        .results-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>PumpScope</h1>
-      <p>Analyze Pump.fun tokens in real-time</p>
-    </div>
-    <p>Paste a token contract address to track dev activity, market cap, holder data, and identify risk signals.</p>
-    <input type="text" id="caInput" placeholder="Paste your CA here">
-    <button onclick="showDemoTable()">Analyze</button>
 
-    <div id="demoTable" class="hidden">
-      <h3>Demo Table</h3>
-      <table>
-        <tr>
-          <th>Action</th>
-          <th>Amount / Coins</th>
-          <th>Market Cap</th>
-          <th>Note</th>
-          <th>Timestamp</th>
-        </tr>
-        <tr>
-          <td>Buy</td>
-          <td>153M $IPO</td>
-          <td>$4.43k</td>
-          <td>Initial Dev Purchase</td>
-          <td>44 min ago</td>
-        </tr>
-        <tr>
-          <td>Buy</td>
-          <td>39M $IPO</td>
-          <td>$8.8k</td>
-          <td>Additional Dev Purchase</td>
-          <td>45 min ago</td>
-        </tr>
-        <tr>
-          <td>Sell</td>
-          <td>3.4M $IPO</td>
-          <td>$39.49k</td>
-          <td>Dev Sell</td>
-          <td>49 min ago</td>
-        </tr>
-        <tr>
-          <td>Transfer</td>
-          <td>100M $IPO</td>
-          <td>—</td>
-          <td>No sell yet (Wallet 1)</td>
-          <td>50 min ago</td>
-        </tr>
-        <tr>
-          <td>Transfer</td>
-          <td>—</td>
-          <td>—</td>
-          <td>No sell yet (Wallet 2)</td>
-          <td>51 min ago</td>
-        </tr>
-      </table>
-    </div>
-  </div>
+    <nav>
+        <div class="logo">
+            <span>🚀</span> PumpScope
+        </div>
+        <div class="menu-icon">☰</div>
+    </nav>
 
-  <script>
-    function showDemoTable() {
-      // Get the input value
-      var caValue = document.getElementById("caInput").value;
+    <header class="hero">
+        <h1>Analyze Pump.fun Tokens in Real-Time</h1>
+        <p>Paste a token contract address to track dev activity, market cap, holder data, and identify risk signals.</p>
+        
+        <div class="search-container">
+            <input type="text" id="caInput" placeholder="Paste Token Contract Address...">
+            <button onclick="analyzeToken()">Analyze</button>
+        </div>
+    </header>
 
-      // For demo purposes, we will show the table regardless of the CA value
-      if (caValue) {
-        document.getElementById("demoTable").style.display = "block";
-      }
-    }
-  </script>
+    <main class="results-section">
+        <table id="resultsTable" class="hidden">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value/Status</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </main>
+
+    <script>
+        function analyzeToken() {
+            const ca = document.getElementById('caInput').value;
+            if (!ca) {
+                alert("Please enter a valid Contract Address.");
+                return;
+            }
+
+            // Show table
+            const table = document.getElementById('resultsTable');
+            table.classList.remove('hidden');
+
+            // Insert Mock Data (Replace with API call later)
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = `
+                <tr><td><strong>Token Status</strong></td><td>Active</td></tr>
+                <tr><td><strong>Dev Holdings</strong></td><td>2.4% (Low Risk)</td></tr>
+                <tr><td><strong>Liquidity</strong></td><td>Locked</td></tr>
+                <tr><td><strong>Market Cap</strong></td><td>$15,200</td></tr>
+            `;
+        }
+    </script>
 </body>
 </html>
