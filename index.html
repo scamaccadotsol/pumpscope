@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #f8fafc; color: #1e293b; }
 
@@ -36,6 +37,52 @@
         
         .hidden { display: none; }
     </style>
+    /* Mobile Optimizations */
+@media (max-width: 600px) {
+    nav {
+        padding: 10px 20px; /* Reduce side padding */
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem; /* Make the main title smaller */
+    }
+
+    .search-container {
+        flex-direction: column; /* Stack input and button vertically */
+        gap: 10px;
+        background: transparent; /* Remove white background from container */
+        box-shadow: none;
+    }
+
+    .search-container input {
+        border-radius: 8px; /* Round all corners on mobile */
+        width: 100%;
+    }
+
+    .search-container button {
+        width: 100%;
+        padding: 15px; /* Bigger tap target for thumbs */
+    }
+
+    /* Make the white badge stack its stats */
+    .multiline-badge {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .stat-val {
+        font-size: 0.9rem; /* Smaller numbers */
+    }
+
+    /* Make the table scrollable so it doesn't break the layout */
+    .dashboard-card {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 500px; /* Ensures table data stays readable */
+    }
+}
 </head>
 <body>
 
