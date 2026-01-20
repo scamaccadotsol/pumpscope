@@ -133,8 +133,7 @@ nav {
 }
 
 .stat span {
-  color: #16a34a;
-  transition: color 0.3s, transform 0.2s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 /* TABS */
@@ -261,7 +260,7 @@ td {
           </tr>
         </thead>
         <tbody id="tableBody">
-          <!-- Table rows will be animated row by row -->
+          <!-- Table rows will appear one by one -->
         </tbody>
       </table>
     </div>
@@ -270,50 +269,58 @@ td {
 </section>
 
 <script>
-// Allowed demo contracts
-const allowedContracts = [
-  "6FfVojCNGxvSEXzGGT3ihFTAtSfSAV94waqR4RUFpump",
-  "IPO123pump"
+// Table rows data (demo)
+const tableData = [
+  {step:1, action:"Buy", wallet:"Dev (main Wallet)", amount:"153M", mcap:"$4.43K", notes:"Initial launch buy", time:"44m ago"},
+  {step:2, action:"Buy", wallet:"Dev (main Wallet)", amount:"4.5M", mcap:"$8.8K", notes:"Additional accumulation", time:"43m ago"},
+  {step:3, action:"Buy", wallet:"Dev (main wallet)", amount:"4.3M", mcap:"$15.5K", notes:"Additional accumulation", time:"42m ago"},
+  {step:4, action:"Sell", wallet:"Dev (main wallet)", amount:"3.4M", mcap:"$39.4K", notes:"Sell detected", time:"41m ago", gain:true},
+  {step:5, action:"Sell", wallet:"Dev (main Wallet)", amount:"3.7M", mcap:"$33.3K", notes:"Sell detected", time:"40m ago", gain:true},
+  {step:6, action:"Transfer", wallet:"Wallet1 (87kjfh..)", amount:"50M", mcap:"—", notes:"No sell yet", time:"39m ago"},
+  {step:7, action:"Transfer", wallet:"Wallet1 (87kjfh..)", amount:"2M", mcap:"—", notes:"No sell yet", time:"39m ago"},
+  {step:8, action:"Transfer", wallet:"Wallet2 (3gdfsj..)", amount:"30M", mcap:"—", notes:"No sell yet", time:"38m ago"},
+  {step:9, action:"Sell", wallet:"Wallet2 (3gdfsj..)", amount:"18M", mcap:"$180k", notes:"Sell detected", time:"12m ago"},
+  {step:10, action:"Sell", wallet:"Wallet1 (87kjfh..)", amount:"1M", mcap:"$170k", notes:"Sell detected", time:"8m ago"}
 ];
 
-// Demo table data
-const demoTableRows = [
-  ["1","Buy","Dev (main Wallet)","153M","$4.43K","Initial launch buy","44m ago"],
-  ["2","Buy","Dev (main Wallet)","4.5M","$8.8K","Additional accumulation","43m ago"],
-  ["3","Buy","Dev (main wallet)","4.3M","$15.5K","Additional accumulation","42m ago"],
-  ["4","Sell","Dev (main wallet)","3.4M","$39.4K","Sell detected","41m ago"],
-  ["5","Sell","Dev (main Wallet)","3.7M","$33.3K","Sell detected","40m ago"],
-  ["6","Transfer","Wallet1 (87kjfh..)","50M","—","No sell yet","39m ago"],
-  ["7","Transfer","Wallet1 (87kjfh..)","2M","—","No sell yet","39m ago"],
-  ["8","Transfer","Wallet2 (3gdfsj..)","30M","—","No sell yet","38m ago"],
-  ["9","Sell","Wallet2 (3gdfsj..)","18M","$180k","Sell detected","12m ago"],
-  ["10","Sell","Wallet1 (87kjfh..)","1M","$170k","Sell detected","8m ago"]
-];
-
-// Animate table rows one by one
-function animateTable() {
+function analyze() {
+  const ca = document.getElementById("caInput").value.trim();
+  const results = document.getElementById("results");
+  const warning = document.getElementById("warningMessage");
   const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = ""; // Clear previous rows
-  let i = 0;
 
-  const interval = setInterval(() => {
-    if (i >= demoTableRows.length) {
-      clearInterval(interval);
-      return;
-    }
-    const tr = document.createElement("tr");
-    demoTableRows[i].forEach((cell, index) => {
-      const td = document.createElement("td");
-      td.textContent = cell;
-      if (cell.toLowerCase().includes("sell")) td.classList.add("gain");
-      tr.appendChild(td);
-    });
-    tableBody.appendChild(tr);
-    i++;
-  }, 400); // 0.4s per row
+  if (!ca) {
+    results.style.display = "none";
+    warning.textContent = "Please paste a token contract address";
+    return;
+  }
+
+  warning.textContent = "";
+  results.style.display = "block";
+  tableBody.innerHTML = ""; // clear table
+
+  // Animate table rows one by one
+  tableData.forEach((row, index) => {
+    setTimeout(() => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${row.step}</td>
+        <td>${row.action}</td>
+        <td>${row.wallet}</td>
+        <td>${row.amount}</td>
+        <td>${row.mcap}</td>
+        <td class="${row.gain ? 'gain' : ''}">${row.notes}</td>
+        <td>${row.time}</td>
+      `;
+      tableBody.appendChild(tr);
+    }, index * 300); // 300ms delay per row
+  });
+
+  // Animate stats (Market Cap + Holders)
+  animateStats();
 }
 
-// Animate main Market Cap & % gain
+// Market Cap + Holders animation
 function animateStats() {
   const mcapElem = document.querySelector(".stat:nth-child(1)");
   const percElem = mcapElem.querySelector("span");
@@ -324,7 +331,7 @@ function animateStats() {
   let baseHolders = 1000; // starting 1,000 holders
 
   setInterval(() => {
-    // Market Cap and % gain
+    // Market Cap
     let mcapChange = Math.floor(Math.random() * 5000) - 2500; // -2500 to +2500
     let percChange = Math.floor(Math.random() * 100) - 50;     // -50 to +50
 
